@@ -2,7 +2,7 @@ class BankAccount:
 
     #constructor is used to initialize the account
 
-    def init(self,account_holder,balance=0):
+    def __init__(self,account_holder,balance=0):
 
         self.account_holder = account_holder
 
@@ -14,7 +14,7 @@ class BankAccount:
 
             self.balance = self.balance + amount
 
-            print(f"${amount} has been deposited.{self.account_holder}'s new balance is ${self.balance}")
+            print(f"\n${amount} has been deposited. {self.account_holder.capitalize()}'s new balance is ${self.balance}\n")
 
     def withdraw(self,amount):
 
@@ -22,7 +22,7 @@ class BankAccount:
 
             self.balance -= amount
 
-            print(f"${amount} withdrawn. {self.account_holder}'s new balance is ${self.balance}")
+            print(f"\n${amount} withdrawn. {self.account_holder.capitalize()}'s new balance is ${self.balance}\n")
 
 
 cred = {
@@ -37,10 +37,31 @@ while True:
     if user_name not in cred:
         print("Username was not found. Try again")
         continue
-    print(cred[user_name]["pin"])
+    pin_code = int(input("Type your pin code:\n"))
+    if pin_code != cred[user_name]["pin"]:
+        print("Pin code is not found. Try again!")
+        continue
     break
-    pin_code = input("Type your pin code:\n")
+
+user_name = BankAccount(user_name)
+print("Welcome,",user_name )
+
+while True:
+    print(" 1. Deposit")
+    print(" 2. Wtihdraw")
+    print(" 3. Check balance")
+    print(" 4. Exit")
+    ans = input()
+
+    if ans == "1":
+        amount = int(input("How much will you deposit?:\n"))
+        user_name.deposit(amount)
+    elif ans == "2":
+        amount = int(input("How much will you withdraw?:\n"))
+        user_name.withdraw(amount)
+    elif ans == "3":
+        print(f"\n{user_name.account_holder}: ${user_name.balance}\n")
+    elif ans == "4":
+        break
 
 
-
-print(cred[user_name]["pin"])
